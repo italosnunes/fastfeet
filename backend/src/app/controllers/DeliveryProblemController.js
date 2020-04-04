@@ -2,6 +2,8 @@ import DeliveryProblem from '../models/DeliveryProblem';
 import Order from '../models/Order';
 import Recipient from '../models/Recipient';
 import Deliveryman from '../models/DeliveryMan';
+import Queue from '../../lib/Queue';
+import CancelOrder from '../jobs/CancelOrder';
 
 class DeliveryProblemController {
   async index(req, res) {
@@ -64,7 +66,26 @@ class DeliveryProblemController {
 
     const order_id = problem.delivery_id;
 
-    const order = await Order.findByPk(order_id);
+    const order = await Order.findByPk(order_id, {
+      include: [
+        {
+          model: Recipient,
+          as: 'recipient',
+        },
+        {
+          model: Deliveryman,
+          as: 'deliveryman',
+        },
+      ],
+    });
+
+    const { recipient, deliveryman } = order;
+
+    await Queue.add(CancelOrder.key, {
+      deliveryman,
+      recipient,
+      order,
+    });
 
     order.canceled_at = new Date();
     order.save();
