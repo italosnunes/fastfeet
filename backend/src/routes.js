@@ -15,6 +15,7 @@ import DeliveryController from './app/controllers/DeliveryController';
 import FileSignatureController from './app/controllers/FileSignatureController';
 import DeliveryProblemController from './app/controllers/DeliveryProblemController';
 import ProblemController from './app/controllers/ProblemController';
+import SessionDeliverymanController from './app/controllers/SessionDeliverymanController';
 
 import authMiddleware from './app/middlewares/auth';
 
@@ -25,7 +26,7 @@ routes.post('/users', UserController.store); // cria usuário
 
 // sessions
 routes.post('/sessions', SessionController.store);
-
+routes.post('/sessions/deliveryman', SessionDeliverymanController.store);
 // delivery
 routes.get('/deliveryman/:id/deliveries', DeliveryController.index);
 routes.put('/deliveryman/:id/deliveries', DeliveryController.update);
@@ -51,18 +52,18 @@ routes.post('/recipients', RecipientController.store);
 routes.put('/recipients/:id', RecipientController.update);
 routes.delete('/recipients/:id', RecipientController.delete);
 
+// Deliveryman
+routes.get('/deliveryman', DeliverymanController.index);
+routes.post('/deliveryman', DeliverymanController.store);
+routes.delete('/deliveryman/:id', DeliverymanController.delete);
+routes.put('/deliveryman/:id', DeliverymanController.update);
+
 // upload de arquivos
 routes.post(
   '/files/deliveryman',
   upload.single('file'),
   FileDeliverymanController.store
 );
-
-// Deliveryman
-routes.get('/deliveryman', DeliverymanController.index);
-routes.post('/deliveryman', DeliverymanController.store);
-routes.delete('/deliveryman/:id', DeliverymanController.delete);
-routes.put('/deliveryman/:id', DeliverymanController.update);
 
 // Order
 routes.get('/order', OrderController.index);

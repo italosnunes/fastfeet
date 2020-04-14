@@ -1,3 +1,4 @@
+import { Op } from 'sequelize';
 import Deliveryman from '../models/DeliveryMan';
 import FileDeliveryman from '../models/FileDeliveryMan';
 
@@ -17,13 +18,24 @@ class DeliverymanController {
   }
 
   async index(req, res) {
-    const { page = 1 } = req.query;
+    const { page = 1, q } = req.query;
 
     const deliveryman = await Deliveryman.findAll({
       order: ['name'],
+      where: {
+        name: {
+          [Op.like]: `${q ? `%${q}%` : '%'}`,
+        },
+      },
       attributes: ['id', 'name', 'email'],
       limit: 20,
       offset: (page - 1) * 20,
+      include: [
+        {
+          model: FileDeliveryman,
+          as: 'avatar',
+        },
+      ],
     });
     return res.json(deliveryman);
   }

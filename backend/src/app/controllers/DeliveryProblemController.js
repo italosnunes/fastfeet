@@ -87,8 +87,7 @@ class DeliveryProblemController {
       order,
     });
 
-    order.canceled_at = new Date();
-    order.save();
+    await order.update(req.body);
 
     return res.json({ problem, order });
   }

@@ -8,12 +8,14 @@ import {
 } from 'date-fns';
 import Order from '../models/Order';
 import Recipient from '../models/Recipient';
+import Deliveryman from '../models/DeliveryMan';
 
 const { Op } = require('sequelize');
 
 class DeliveryController {
   async index(req, res) {
     const { delivered } = req.query;
+    const { id } = req.params;
     const ops = {
       opNull: {
         [Op.is]: null,
@@ -23,10 +25,18 @@ class DeliveryController {
       },
     };
 
+    const deliveryman = await Deliveryman.findByPk(id);
+
+    if (!deliveryman) {
+      return res.json({
+        error: { message: 'Deliveryman not found' },
+      });
+    }
+
     const order = await Order.findAll({
       // where: delivered ? a.opNotNull : a.opNull,
       where: {
-        deliveryman_id: req.params.id,
+        deliveryman_id: id,
         canceled_at: null,
         end_date: delivered ? ops.opNotNull : ops.opNull,
       },

@@ -1,4 +1,5 @@
 import * as Yup from 'yup';
+import { Op } from 'sequelize';
 import Recipient from '../models/Recipient';
 
 class RecipientController {
@@ -45,7 +46,16 @@ class RecipientController {
   }
 
   async index(req, res) {
-    const recipients = await Recipient.findAll();
+    const { q } = req.query;
+
+    const recipients = await Recipient.findAll({
+      order: ['name'],
+      where: {
+        name: {
+          [Op.like]: `${q ? `%${q}%` : '%'}`,
+        },
+      },
+    });
     return res.json(recipients);
   }
 

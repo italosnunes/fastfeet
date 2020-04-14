@@ -1,6 +1,9 @@
 import * as Yup from 'yup';
+
+import { Op } from 'sequelize';
 import Order from '../models/Order';
 import Deliveryman from '../models/DeliveryMan';
+
 import Recipient from '../models/Recipient';
 
 import Queue from '../../lib/Queue';
@@ -8,13 +11,32 @@ import CreateOrder from '../jobs/CreateOrder';
 
 class OrderController {
   async index(req, res) {
+    const { q } = req.query;
+
     try {
       const orders = await Order.findAll({
+        where: {
+          product: {
+            [Op.like]: `${q ? `%${q}%` : '%'}`,
+          },
+        },
+
+        attributes: [
+          'id',
+          'signature_id',
+          'product',
+          'canceled_at',
+          'start_date',
+          'end_date',
+          'status',
+        ],
+
         include: [
           {
             model: Recipient,
             as: 'recipient',
             attributes: [
+              'id',
               'name',
               'address',
               'number',
@@ -22,6 +44,16 @@ class OrderController {
               'city',
               'state',
               'postal_code',
+            ],
+          },
+          {
+            model: Deliveryman,
+            as: 'deliveryman',
+            attributes: ['id', 'name', 'email'],
+            include: [
+              {
+                all: true,
+              },
             ],
           },
         ],
