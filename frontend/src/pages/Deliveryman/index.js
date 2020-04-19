@@ -40,7 +40,7 @@ export default function Deliveryman() {
     }
 
     loadDeliveryman(query);
-  }, [deliverymans, query]);
+  }, [query]);
 
   function handleNew() {
     history.push('/deliveryman/new');

@@ -39,6 +39,7 @@ routes.post(
 
 // problems
 routes.post('/delivery/:order/problems', DeliveryProblemController.store);
+routes.get('/delivery/:order/problems', DeliveryProblemController.index);
 
 // middlewares global*************************************************************
 routes.use(authMiddleware);
@@ -76,5 +77,6 @@ routes.get('/delivery/problems', DeliveryProblemController.index);
 routes.put('/problem/:id/cancel-delivery', DeliveryProblemController.update);
 
 // Problem Admin
-routes.get('/delivery/:order/problems', ProblemController.index);
+// routes.get('/delivery/:order/problems', ProblemController.index);
+
 export default routes;

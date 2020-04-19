@@ -4,17 +4,21 @@ import FileDeliveryman from '../models/FileDeliveryMan';
 
 class DeliverymanController {
   async store(req, res) {
-    const deliverymanExists = await Deliveryman.findOne({
-      where: { email: req.body.email },
-    });
+    try {
+      const deliverymanExists = await Deliveryman.findOne({
+        where: { email: req.body.email },
+      });
 
-    if (deliverymanExists) {
-      return res.status(400).json({ error: 'Deliveryman already exists' });
+      if (deliverymanExists) {
+        return res.status(400).json({ error: 'Deliveryman already exists' });
+      }
+
+      const { id, name, email } = await Deliveryman.create(req.body);
+
+      return res.json({ id, name, email });
+    } catch (error) {
+      return res.json(error);
     }
-
-    const { id, name, email } = await Deliveryman.create(req.body);
-
-    return res.json({ id, name, email });
   }
 
   async index(req, res) {

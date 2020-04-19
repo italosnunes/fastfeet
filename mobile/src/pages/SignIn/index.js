@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import { Image, StatusBar, Button } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import { Image, StatusBar, TouchableOpacity } from 'react-native';
+import { useDispatch } from 'react-redux';
 import logo from '../../assets/logo.png';
-import { Container, Form, FormInput, SubmitButton } from './styles';
+import { Container, Form, FormInput, TextButton } from './styles';
 
 import { signInRequest } from '../../store/modules/auth/actions';
 
 export default function SignIn() {
   const dispatch = useDispatch();
   const [id, setId] = useState(0);
-  const loading = useSelector((state) => state.auth.loading);
+  // const loading = useSelector((state) => state.auth.loading);
 
   function handleSubmit() {
     dispatch(signInRequest(id));
@@ -28,7 +28,9 @@ export default function SignIn() {
             value={id}
             onChangeText={setId}
           />
-          <Button onPress={handleSubmit} title="Entrar no sistema" />
+          <TouchableOpacity onPress={handleSubmit}>
+            <TextButton>Entrar no sistema</TextButton>
+          </TouchableOpacity>
         </Form>
       </Container>
     </>

@@ -10,7 +10,6 @@ export function* signIn({ payload }) {
 
     const response = yield call(api.post, 'sessions/deliveryman', { id });
 
-    console.tron.log('response', response);
     const { deliveryman } = response.data;
 
     if (!deliveryman) {

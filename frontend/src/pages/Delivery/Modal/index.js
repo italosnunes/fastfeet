@@ -2,24 +2,31 @@ import React from 'react';
 
 import { Signature } from './styles';
 
-export default function Modal() {
+export default function Modal(props) {
+  const { order } = props;
+  console.tron.log(order);
   return (
     <>
       <strong>Informações da encomenda</strong>
-      <p>Ali...</p>
-      <p>Diadema - SP</p>
-      <p>09960-580</p>
+      <p>{order.product}</p>
+      <p>
+        {`${order.recipient.address},${order.recipient.number || ''} ${
+          order.recipient.complement || ''
+        }`}
+      </p>
+      <p>{`${order.recipient.city}-${order.recipient.state}`}</p>
+      <p>{order.recipient.postal_code}</p>
       <hr />
       <p>
         <strong>Datas</strong>
       </p>
       <div>
         <strong>Retirada:</strong>
-        <small>25/01/2020</small>
+        <small>{order.start_date}</small>
       </div>
       <div>
         <strong>Entrega:</strong>
-        <small>25/01/2020</small>
+        <small>{order.end_date}</small>
       </div>
 
       <hr />

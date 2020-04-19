@@ -1,4 +1,5 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { useHistory, useLocation } from 'react-router-dom';
 import { MdDone, MdKeyboardArrowLeft } from 'react-icons/md';
@@ -7,14 +8,15 @@ import * as Yup from 'yup';
 import AvatarInput from '../AvatarInput';
 import { Container, Content, Title, Button } from './styles';
 import api from '~/services/api';
+import { delAvatar } from '~/store/modules/deliveryman/actions';
 
 export default function NewDeliveryman() {
   const history = useHistory();
   const location = useLocation();
-
+  const dispatch = useDispatch();
   const { state } = location;
   const deliveryman = state ? state.state.deliveryman : null;
-
+  const _avatar = useSelector((stat) => stat.deliveryman.avatar_id);
   const title = deliveryman
     ? 'Edição de Entregadores'
     : 'Cadastro de Entregadores';
@@ -27,15 +29,25 @@ export default function NewDeliveryman() {
   });
 
   function handleBack() {
+    dispatch(delAvatar());
     history.goBack();
   }
 
   async function handleSubmit(data) {
+    const { name, email } = data;
+
+    const newData = {
+      name,
+      email,
+      avatar_id: _avatar || (deliveryman.avatar ? deliveryman.avatar.id : null),
+    };
+
     if (!deliveryman) {
       try {
-        await api.post('deliveryman', data);
+        await api.post('deliveryman', newData);
         toast.success('Entregador cadastrado com sucesso!');
         history.push('/deliveryman');
+        dispatch(delAvatar());
       } catch (error) {
         toast.error(
           'Erro ao cadastrar entregador. Verifique os dados e tente novamente'
@@ -43,9 +55,10 @@ export default function NewDeliveryman() {
       }
     } else {
       try {
-        await api.put(`deliveryman/${deliveryman.id}`, data);
+        await api.put(`deliveryman/${deliveryman.id}`, newData);
         toast.warn('Cadastro do Entregador atualizado com sucesso!');
         history.push('/deliveryman');
+        dispatch(delAvatar());
       } catch (error) {
         toast.error(
           'Erro ao atualizar dados do entregador. Verifique as informações e tente novamente'
@@ -63,7 +76,6 @@ export default function NewDeliveryman() {
             <MdKeyboardArrowLeft color="#fff" size={20} />
             VOLTAR
           </Button>
-
           <Button type="submit" form="frmDeliveryman">
             <MdDone color="#fff" size={20} />
             SALVAR
@@ -72,12 +84,12 @@ export default function NewDeliveryman() {
       </header>
       <Content>
         <Form
-          schema={schema}
           id="frmDeliveryman"
+          schema={schema}
           initialData={deliveryman}
           onSubmit={handleSubmit}
         >
-          <AvatarInput name="avatar_id" />
+          <AvatarInput />
           <p>Nome</p>
           <Input name="name" type="text" placeholder="Nome do Entregador" />
           <p>E-mail</p>
@@ -87,3 +99,5 @@ export default function NewDeliveryman() {
     </Container>
   );
 }
+
+//

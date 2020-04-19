@@ -40,7 +40,14 @@ class DeliveryController {
         canceled_at: null,
         end_date: delivered ? ops.opNotNull : ops.opNull,
       },
-      attributes: ['id', 'product', 'start_date', 'end_date'],
+      attributes: [
+        'id',
+        'product',
+        'start_date',
+        'end_date',
+        'status',
+        'created_at',
+      ],
       include: [
         {
           model: Recipient,
@@ -61,7 +68,7 @@ class DeliveryController {
   }
 
   async update(req, res) {
-    const { id, start_date, end_date, signature_id } = req.body;
+    const { id, start_date, end_date, signature_id, status } = req.body;
     const deliveryman_id = req.params.id;
     const { date } = req.query;
     const timeJob = { initJob: '08:00:00', endJob: '18:00:00' };
@@ -113,7 +120,8 @@ class DeliveryController {
         });
       }
 
-      delivery.start_date = start_date; // start_date;
+      delivery.start_date = start_date;
+      delivery.status = 'RETIRADA';
       await delivery.save();
       return res.json({ delivery });
     }
@@ -125,6 +133,7 @@ class DeliveryController {
     try {
       delivery.end_date = end_date;
       delivery.signature_id = signature_id;
+      delivery.status = 'ENTREGUE';
       delivery.save();
       return res.json({ delivery });
     } catch (error) {

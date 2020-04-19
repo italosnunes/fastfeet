@@ -1,10 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { useField } from '@rocketseat/unform';
 import api from '~/services/api';
+import { setAvatar } from '~/store/modules/deliveryman/actions';
 
 import { Container } from './styles';
 
 export default function AvatarInput() {
+  const dispatch = useDispatch();
   const { defaultValue, registerField } = useField('avatar');
   const [file, setFile] = useState(defaultValue && defaultValue.id);
   const [preview, setPreview] = useState(defaultValue && defaultValue.url);
@@ -31,6 +34,7 @@ export default function AvatarInput() {
 
     setFile(id);
     setPreview(url);
+    dispatch(setAvatar(id));
   }
 
   return (

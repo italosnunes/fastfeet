@@ -38,10 +38,12 @@ function ActionsMenu(props) {
     editText,
     editFunction,
     modal,
+    modalItem,
     delFunction,
   } = props;
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
+  const container = React.createRef();
 
   const handleOpen = () => {
     console.tron.log(`clicked handleOpen ${modal}`);
@@ -57,7 +59,7 @@ function ActionsMenu(props) {
   }
 
   return (
-    <Container>
+    <Container ref={container}>
       <Badge onClick={handleVisible}>...</Badge>
       <Menu visible={visible}>
         <MenuItem visible={see} onClick={handleOpen}>
@@ -91,7 +93,7 @@ function ActionsMenu(props) {
           <Fade in={open}>
             <ContainerModal>
               {modal === 'problem' && <ProblemModal />}
-              {modal === 'delivery' && <DeliveryModal />}
+              {modal === 'delivery' && <DeliveryModal order={modalItem} />}
             </ContainerModal>
           </Fade>
         </Modal>

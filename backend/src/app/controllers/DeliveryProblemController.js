@@ -1,3 +1,4 @@
+import { Op } from 'sequelize';
 import DeliveryProblem from '../models/DeliveryProblem';
 import Order from '../models/Order';
 import Recipient from '../models/Recipient';
@@ -8,7 +9,14 @@ import CancelOrder from '../jobs/CancelOrder';
 class DeliveryProblemController {
   async index(req, res) {
     const deliveryProblems = await DeliveryProblem.findAll({
-      attributes: ['id', 'description'],
+      where: {
+        delivery_id: {
+          [Op.eq]: req.params.order,
+        },
+      },
+    });
+
+    /*
       include: [
         {
           model: Order,
@@ -37,7 +45,7 @@ class DeliveryProblemController {
           ],
         },
       ],
-    });
+    */
 
     return res.json(deliveryProblems);
   }

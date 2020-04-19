@@ -89,8 +89,6 @@ export default function New() {
       deliveryman_id,
     };
 
-    console.tron.log(delivery);
-
     if (!order) {
       try {
         const _delivery = { ...delivery, status: 'AGUARDANDO RETIRADA' };

@@ -43,7 +43,7 @@ export default function Delivery() {
     }
 
     loadOrders(query);
-  }, [orders, query]);
+  }, [query]);
 
   function handleNew() {
     history.push('/delivery/new');
@@ -137,6 +137,7 @@ export default function Delivery() {
                     see
                     del
                     modal="delivery"
+                    modalItem={order}
                     editFunction={() =>
                       handleEdit({
                         id: order.id,
