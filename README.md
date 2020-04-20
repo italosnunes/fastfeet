@@ -11,17 +11,19 @@ Apesar do prazo de entrega ter sido relativamente adequado, a correria do dia a 
 
 Por isso, em breve estarei lançando a versão Final.
 
-Começando Execute o comando ```yarn``` tanto na pasta **backend, frontend e mobile** para instalação dos módulos necessários.
+### Começando 
+
+Execute o comando ```yarn``` tanto na pasta **backend, frontend e mobile** para instalação dos módulos necessários.
 
 ------------------------------------------------------------------------------------------------------
 
-# Backend
+### Backend
 
 Para perfeito funcionamento, deverá editar o arquivo .env na raiz do projeto
 
 ------------------------------------------------------------------------------------------------------
 
-# Frontend
+### Frontend
 
 Alterar a BaseURL no arquivo /src/services/api.js com o ip para comunicaçã
 o com o backend.
@@ -36,7 +38,7 @@ senha: 123456
 
 ------------------------------------------------------------------------------------------------------
 
-# Mobile
+### Mobile
 
 Alterar a BaseURL no arquivo /src/services/api.js com o ip para comunicaçã
 o com o backend.
