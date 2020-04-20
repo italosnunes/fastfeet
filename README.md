@@ -1,6 +1,6 @@
 <p align="center">
 <img src="https://github.com/Rocketseat/bootcamp-gostack-desafio-03/blob/master/.github/logo.png"><br>
-<span>"Fiz meu melhor, com o prazo de entrega"</span><br><br>
+<span>"Fiz meu melhor, com prazo de entrega"</span><br><br>
 </p>
 
 
@@ -24,7 +24,7 @@ Execute o comando ```yarn``` tanto na pasta **backend, frontend e mobile** para 
 
 ### Backend
 
-Para perfeito funcionamento, deverá editar o arquivo .env na raiz do projeto
+Para perfeito funcionamento, deverá renomear o arquivo ``.env Example`` para ``.env`` e editar o arquivo de acordo com as configurações do servidor.
 
 ------------------------------------------------------------------------------------------------------
 
