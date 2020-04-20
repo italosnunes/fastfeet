@@ -1,6 +1,6 @@
 <p align="center">
 <img src="https://github.com/Rocketseat/bootcamp-gostack-desafio-03/blob/master/.github/logo.png"><br>
-<span>"Fiz meu melhor, com o prazo de entrega"</span><br><br>
+<span>"Fiz meu melhor, com prazo de entrega"</span><br><br>
 </p>
 
 
