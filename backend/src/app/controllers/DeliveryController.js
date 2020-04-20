@@ -68,7 +68,7 @@ class DeliveryController {
   }
 
   async update(req, res) {
-    const { id, start_date, end_date, signature_id, status } = req.body;
+    const { id, start_date, end_date, signature_id } = req.body;
     const deliveryman_id = req.params.id;
     const { date } = req.query;
     const timeJob = { initJob: '08:00:00', endJob: '18:00:00' };
