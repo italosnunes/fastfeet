@@ -24,7 +24,7 @@ Execute o comando ```yarn``` tanto na pasta **backend, frontend e mobile** para 
 
 ### Backend
 
-Para perfeito funcionamento, deverá editar o arquivo .env na raiz do projeto
+Para perfeito funcionamento, deverá renomear o arquivo ``.env Example`` para ``.env`` e editar o arquivo de acordo com as configurações do servidor.
 
 ------------------------------------------------------------------------------------------------------
 
