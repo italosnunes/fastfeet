@@ -9,8 +9,11 @@ Esse é a versão de "Entrega do Projeto" com as funcionalidades básicas afim d
 
 Apesar do prazo de entrega ter sido relativamente adequado, a correria do dia a dia impediu que fosse desenvolvido todas as features como gostaria.
 
-Por isso, em breve estarei lançando a versão Final.  :)
+Por isso, em breve estarei lançando a versão Final.
 
+Começando Execute o comando ```yarn``` tanto na pasta **backend, frontend e mobile** para instalação dos módulos necessários.
+
+------------------------------------------------------------------------------------------------------
 
 # Backend
 
